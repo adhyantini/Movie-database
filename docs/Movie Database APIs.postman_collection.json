@@ -1,0 +1,102 @@
+{
+	"info": {
+		"_postman_id": "22829be3-cd66-4085-91dd-bef9068b430c",
+		"name": "Movie Database APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6640129"
+	},
+	"item": [
+		{
+			"name": "Fetch Movies By Year",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/movies/2019",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"movies",
+						"2019"
+					]
+				},
+				"description": "### 1\\. General Information\n\n- **Name**: Get Movies by Year\n    \n- **Method**: `GET`\n    \n- **Endpoint URL**: `http://localhost:3000/api/v1/movies/:year`\n    \n- **Description**: This endpoint returns a list of movies released in a given year, sorted by popularity. Each movie includes the title, release date, average vote, and a list of editors involved (if available).\n    \n\n### 2\\. **Request Parameters**\n\n- **Path Parameter**:\n    \n    - `year`: The year of movie release in `YYYY` format.\n        \n        - **Type**: `string`\n            \n        - **Required**: `true`\n            \n        - **Example**: `2019`\n            \n\n### 3\\. **Example Request**\n\n```\nhttpCopy codeGET /api/v1/movies/2019 HTTP/1.1\nHost: localhost:3000\nContent-Type: application/json\n\n ```\n\n### 4\\. **Responses**\n\n#### Success Response (200 OK)\n\n- **Description**: Successfully retrieves a list of movies released in the specified year.\n    \n- jsonCopy code\\[ { \"title\": \"Joker\", \"release_date\": \"2019-10-04\", \"vote_average\": 8.5, \"editors\": \\[\"Editor 1\", \"Editor 2\", \"Editor 3\"\\] }, { \"title\": \"Avengers: Endgame\", \"release_date\": \"2019-04-26\", \"vote_average\": 8.4, \"editors\": \\[\"Editor 4\", \"Editor 5\"\\] }\\]"
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid Year",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/movies/abcd",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"movies",
+						"abcd"
+					]
+				},
+				"description": "### 1\\. **General Information**\n\n- **Name**: Get Movies by Year (Invalid Year)\n    \n- **Method**: `GET`\n    \n- **Endpoint URL**: `http://localhost:3000/api/v1/movies/:year`\n    \n- **Description**: This endpoint is used to test the validation logic for the year parameter. When an invalid year (non-`YYYY` format) is provided, the server responds with an appropriate error message.\n    \n\n### 2\\. **Request Parameters**\n\n- **Path Parameter**:\n    \n    - `year`: The year parameter, expected in `YYYY` format.\n        \n        - **Type**: `string`\n            \n        - **Required**: `true`\n            \n        - **Example**: `abcd` (invalid format)\n            \n\n### 3\\. **Request Headers**\n\n- **Content-Type**:\n    \n    - **Type**: `application/json`\n        \n    - **Required**: `true`\n        \n\n### 4\\. **Example Request**\n\n```\nhttpCopy codeGET /api/v1/movies/abcd HTTP/1.1\nHost: localhost:3000\nContent-Type: application/json\n\n ```\n\n### 5\\. **Responses**\n\n#### Error Response (400 Bad Request)\n\n- **Description**: The server responds with a `400 Bad Request` when the year parameter is invalid (non-`YYYY` format).\n    \n- { \"message\": \"Invalid or missing year parameter. Please provide a year in YYYY format.\"}\n    \n\n### 6\\. **Example Usage in Postman**\n\n- **Collection Folder**: `Movie Database APIs`\n    \n- **Request Name**: `Invalid Year`\n    \n- **Method**: Set the method to `GET`.\n    \n- **URL**: Enter `http://localhost:3000/api/v1/movies/abcd`.\n    \n- **Headers**: Set the `Content-Type` to `application/json`.\n    \n\n### 7\\. **Validation Notes**\n\n- The year parameter must be in `YYYY` format. Any non-numeric or non-`YYYY` formatted strings will trigger a `400 Bad Request`.\n    \n- This response helps the client understand validation requirements and corrects input mistakes."
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid Method",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/movies/2019",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"movies",
+						"2019"
+					]
+				},
+				"description": "### 1\\. **General Information**\n\n- **Name**: Movies Endpoint (Invalid Method)\n    \n- **Method**: Should only allow `GET` requests\n    \n- **Endpoint URL**: `http://localhost:3000/api/v1/movies/:year`\n    \n- **Description**: This endpoint only supports `GET` requests. Any other HTTP method will result in a `405 Method Not Allowed` response.\n    \n\n### 2\\. **Request Parameters**\n\n- **Path Parameter**:\n    \n    - `year`: The year in `YYYY` format for which to retrieve movies.\n        \n        - **Type**: `string`\n            \n        - **Required**: `true`\n            \n        - **Example**: `2019`\n            \n\n### 3\\. **Request Headers**\n\n- **Content-Type**:\n    \n    - **Type**: `application/json`\n        \n    - **Required**: `true`\n        \n\n### 4\\. **Example Request**\n\n```\nhttpCopy codePOST /api/v1/movies/2019 HTTP/1.1\nHost: localhost:3000\nContent-Type: application/json\n\n ```\n\n### 5\\. **Responses**\n\n#### Error Response (405 Method Not Allowed)\n\n- **Description**: The server returns a `405 Method Not Allowed` status code if a method other than `GET` is used.\n    \n- { \"message\": \"Invalid method. Only GET requests are allowed.\"}\n    \n\n### 6\\. **Example Usage in Postman**\n\n- **Collection Folder**: `Movie Database APIs`\n    \n- **Request Name**: `Invalid Method`\n    \n- **Method**: Set the method to `POST` (or any non-`GET` method).\n    \n- **URL**: Enter `http://localhost:3000/api/v1/movies/2019`.\n    \n- **Headers:**\n    \n    - Set `Content-Type` to `application/json`.\n        \n\n### 7\\. **Response Details**\n\n- **Status Code**: `405 Method Not Allowed`\n    \n- **Response Body**:\n    \n    - `message`: A string indicating that the HTTP method used is not allowed."
+			},
+			"response": []
+		},
+		{
+			"name": "Missing Year",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/movies/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"movies",
+						""
+					]
+				},
+				"description": "1\\. **General Information**\n\n- **Name**: Movies Endpoint (Missing Year)\n    \n- **Method**: `GET`\n    \n- **Endpoint URL**: `http://localhost:3000/api/v1/movies/`\n    \n- **Description**: This endpoint requires a `year` parameter. When the `year` is not provided, it results in a `400` response indicating the resource is not available without the required parameter.\n    \n\n### 2\\. **Request Parameters**\n\n- **Path Parameter**:\n    \n    - `year`: The year in `YYYY` format for which to retrieve movies.\n        \n        - **Type**: `string`\n            \n        - **Required**: `true`\n            \n        - **Example**: `2019`\n            \n\n### 3\\. **Request Headers**\n\n- **Content-Type**:\n    \n    - **Type**: `application/json`\n        \n    - **Required**: `true`\n        \n\n### 4\\. **Example Request**\n\n```\nhttpCopy codeGET /api/v1/movies/ HTTP/1.1\nHost: localhost:3000\nContent-Type: application/json\n\n ```\n\n### 5\\. **Responses**\n\n#### Error Response (400)\n\n- **Description**: The server returns a `400` status code when the `year` parameter is missing from the request.\n    \n\n### 6\\. **Example Usage in Postman**\n\n- **Collection Folder**: `Movie Database API`\n    \n- **Request Name**: `Missing Year Request`\n    \n- **Method**: `GET`\n    \n- **URL**: Enter `http://localhost:3000/api/v1/movies/`.\n    \n- **Headers**:\n    \n    - Add an `Authorization` header with `Bearer` .\n        \n    - Set `Content-Type` to `application/json`.\n        \n\n### 7\\. **Response Details**\n\n- **Status Code**: `400`"
+			},
+			"response": []
+		}
+	]
+}

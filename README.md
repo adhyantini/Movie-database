@@ -50,6 +50,16 @@ This project is a Node.js and TypeScript-based RESTful API that interacts with T
 6. **Run tests**:
     ```bash
     npm test
+
+## Postman Collection
+
+This repository includes a Postman collection for testing and interacting with the API.
+
+### How to Use the Postman Collection
+1. Download the [Postman collection](./docs/Movie%20Database%20APIs.postman_collection.json) from this repository.
+2. Open Postman and select **Import**.
+3. Choose the downloaded `.json` file and import it.
+4. Use the collection to send requests to the API.
     ```
 
 ## Contact Information

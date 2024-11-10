@@ -9,6 +9,7 @@ export const NOT_FOUND_ERROR_MESSAGE = "Oops, the resource does not exist!"
 export const EMPTY_PARAMETER_MESSAGE = "Please provide a year(YYYY)"
 export const INVALID_PARAMETER_MESSAGE = "Invalid year format. Please provide a valid year in the YYYY format."
 export const INVALID_METHOD_ERROR_MESSAGE = "Invalid request method. Only GET Allowed."
+export const MISSING_YEAR_PARAMETER_MESSAGE = "Year parameter is required. Please provide a valid year in YYYY format."
 
 //Fetch results by depratment
 export const EDITING_DEPARTMENT_FILTER = "Editing"

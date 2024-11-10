@@ -6,6 +6,7 @@ import {
   INVALID_METHOD_ERROR_MESSAGE,
   INVALID_PARAMETER_MESSAGE,
   INTERNAL_SERVER_ERROR_MESSAGE,
+  MISSING_YEAR_PARAMETER_MESSAGE,
 } from "../constants";
 import { getMoviesByYear } from "../services/movie.service";
 
@@ -93,5 +94,15 @@ describe("MovieController", () => {
     expect(response.body[0].title).toBe("Joker");
     expect(response.body[0].release_date).toBe("January 1, 2019");
     expect(response.body[0].vote_average).toBe(8.19);
+  });
+
+  it("should return 400 if year parameter is missing in URL", async () => {
+    const response = await request(app).get("/api/v1/movies");
+
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty(
+      "message",
+      MISSING_YEAR_PARAMETER_MESSAGE
+    );
   });
 });
